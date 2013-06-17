@@ -4,7 +4,7 @@ Plugin Name: visualCaptcha
 Plugin URI:  http://visualcaptcha.net/
 Description: The easiest way to implement an unusual Captcha with images instead of text and drag & drop capabilities.
 Author: emotionLoop
-Version: 4.0.3  Wordpress 
+Version: 4.0.4  Wordpress 
 Author URI: http://emotionloop.com/
 License: GNU GPL v3
 */

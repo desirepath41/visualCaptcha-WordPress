@@ -1,6 +1,6 @@
 <?php
 /**
- * visualCaptchaHTML class by emotionLoop - 2013.03.28
+ * visualCaptchaHTML class by emotionLoop - 2013.06.17
  *
  * This class handles the HTML for the main visualCaptcha class.
  *
@@ -10,7 +10,7 @@
  * @link http://visualcaptcha.net
  * @package visualCaptcha Wordpress
  * @license GNU GPL v3 | http://www.gnu.org/licenses/gpl.html
- * @version 4.0.3 
+ * @version 4.0.4
  */
 namespace visualCaptcha;
 
@@ -29,13 +29,13 @@ class visualcaptcha_html {
 ?>
 <link rel="stylesheet" href="<?php echo $cssFile; ?>">
 <div class="eL-captcha type-<?php echo $type; ?> clearfix">
-	<p class="eL-explanation type-<?php echo $type; ?>"><?php _e( 'Drag the', 'visualcaptcha' ); ?> <strong><?php echo $captchaText; ?></strong> <?php _e( 'to the circle on the side', 'visualcaptcha') ; ?>.</p>
+	<p class="eL-explanation type-<?php echo $type; ?>"><span class="desktopText"><?php _e( 'Drag the', 'visualcaptcha' ); ?> <strong><?php echo $captchaText; ?></strong> <?php _e( 'to the circle on the side', 'visualcaptcha'); ?>.</span><span class="mobileText"><?php _e( 'Touch the', 'visualcaptcha'); ?> <strong><?php echo $captchaText; ?></strong> <?php _e( 'to move it to the circle on the side', 'visualcaptcha'); ?>.</span></p>
 	<div class="eL-possibilities type-<?php echo $type; ?> clearfix">
 <?php
-		for ($i=0;$i<$limit;$i++) {
-			$name = $options[$i];
-			$image = $optionsProperties[$name][0];
-			$text = $optionsProperties[$name][1];
+		for ( $i = 0; $i < $limit; $i++ ) {
+			$name = $options[ $i ];
+			$image = $optionsProperties[ $name ][ 0 ];
+			$text = $optionsProperties[ $name ][ 1 ];
 ?>
 		<img src="<?php echo $image; ?>" class="vc-<?php echo $name; ?>" data-value="<?php echo $name; ?>" alt="" title="">
 <?php
@@ -48,9 +48,9 @@ class visualcaptcha_html {
 <?php 
 	if ( !empty( $audioOption ) ) {
 ?>
-	<p class="eL-accessibility type-<?php echo $type; ?>"><a href="javascript:void(0);" title="<?php _e('Accessibility option: listen to a question and answer it!', 'visualcaptcha' ); ?>"><img src="<?php echo \visualCaptcha\visualcaptcha::$imagesPath; ?>accessibility.png" alt="<?php _e('Accessibility option: listen to a question and answer it!', 'visualcaptcha' ); ?>"></a></p>
+	<p class="eL-accessibility type-<?php echo $type; ?>"><a href="#" title="<?php _e('Accessibility option: listen to a question and answer it!', 'visualcaptcha' ); ?>"><img src="<?php echo \visualCaptcha\visualcaptcha::$imagesPath; ?>accessibility.png" alt="<?php _e('Accessibility option: listen to a question and answer it!', 'visualcaptcha' ); ?>"></a></p>
 	<div class="eL-accessibility type-<?php echo $type; ?>">
-		<p><?php _e( 'Type below the', 'visualcaptcha' ); ?> <strong><?php echo 'answer'; ?></strong> <?php _e( 'to what you hear. Numbers or words, lowercase:', 'visualcaptcha' ); ?></p>
+		<p><?php _e( 'Type below the', 'visualcaptcha' ); ?> <strong><?php echo 'answer'; ?></strong> <?php _e( 'to what you hear. Numbers or words:', 'visualcaptcha' ); ?></p>
 		<audio preload="preload">
 			<source src="<?php echo \visualCaptcha\visualcaptcha::$audioFile; ?>?t=ogg&amp;r=<?php echo time(); ?>" type="audio/ogg">
 			<source src="<?php echo \visualCaptcha\visualcaptcha::$audioFile; ?>?t=mp3&amp;r=<?php echo time(); ?>" type="audio/mpeg">
@@ -75,6 +75,9 @@ window.vCVals = {
 /*forcing the correct path to the drop here image*/
 div.eL-captcha > div.eL-where2go {
 	background: transparent url('<?php echo WP_CONTENT_URL ?>/plugins/visualcaptcha/images/visualcaptcha/dropzone.png') center center no-repeat !important;
+}
+div.eL-captcha > div.eL-where2go.retina {
+	background: transparent url('<?php echo WP_CONTENT_URL ?>/plugins/visualcaptcha/images/visualcaptcha/dropzone@2x.png') center center no-repeat !important;
 }
 </style>
 <script src="<?php echo $jsFile; ?>" ></script>
