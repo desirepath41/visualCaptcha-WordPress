@@ -4,7 +4,7 @@ Plugin Name: visualCaptcha
 Plugin URI:  http://visualcaptcha.net/
 Description: The easiest way to implement an unusual Captcha with images instead of text and drag & drop capabilities.
 Author: emotionLoop
-Version: 4.0.4  Wordpress 
+Version: 4.1.0  Wordpress 
 Author URI: http://emotionloop.com/
 License: GNU GPL v3
 */
@@ -64,8 +64,8 @@ function visualcaptcha_do_filter( $data_in = false, $data_in1 = false, $data_in2
 	if ( strpos( $current_filter, 'comment' ) !== false ) {
 		if ( !empty( $data_in ) ) {
 			if ( is_array( $data_in ) && isset( $data_in[ 'comment_post_ID' ] ) && !empty( $data_in[ 'comment_post_ID' ] ) ) {
-				if ( empty( $test_post ) ) {
-					wp_die( __('ERROR: You fail the human verification. Please go back and try again.', 'visualcaptcha'));
+				if ( ! $test_post ) {
+					wp_die( __('ERROR: You failed the human verification test. Please go back and try again.', 'visualcaptcha'));
 				}	
 			}
 		}
@@ -146,20 +146,18 @@ function visualcaptcha_do_action ( $data_in = false, $data_in1 = false, $data_in
 		return $data_in;
 	}
 	
-	$audio_option = get_option('visualcaptcha_form_audio_option');
-	
-	print_visualCaptcha('loginform', $current_hook_data['vertical_opt'],NULL,NULL,$audio_option);
+	print_visualCaptcha('loginform', $current_hook_data['vertical_opt'],NULL,NULL);
    
 	return $data_in;	
 }
 /////////////////////////
 // Start visualCaptcha Form
-function print_visualCaptcha($formId = NULL, $type = NULL, $fieldName = NULL, $accessibilityFieldName = NULL, $audioOption = NULL) {
+function print_visualCaptcha($formId = NULL, $type = NULL, $fieldName = NULL, $accessibilityFieldName = NULL) {
 	if ( session_id() == '' ) {
 		session_start();
 	}
 	require_once('inc/visualcaptcha.class.php');
-	$visualCaptcha = new \visualCaptcha\visualcaptcha($formId,$type,$fieldName,$accessibilityFieldName,$audioOption);
+	$visualCaptcha = new \visualCaptcha\Captcha($formId,$type,$fieldName,$accessibilityFieldName);
 	$visualCaptcha->show();
 }
 
@@ -171,7 +169,7 @@ function validate_visualCaptcha($formId = NULL, $type = NULL, $fieldName = NULL,
 	}
 	
 	require_once('inc/visualcaptcha.class.php');
-	$visualCaptcha = new \visualCaptcha\visualcaptcha($formId,$type,$fieldName,$accessibilityFieldName);
+	$visualCaptcha = new \visualCaptcha\Captcha($formId,$type,$fieldName,$accessibilityFieldName);
 	return $visualCaptcha->isValid();
 }
 
@@ -193,7 +191,6 @@ function add_visualcaptcha_admin_menu() {
 //visualCaptcha page
 function visualcaptcha_admin_settings_page () {
 	$visualcaptcha_current_hooks = get_option( 'visualcaptcha_form_hooks' );
-	$audioOption = get_option( 'visualcaptcha_form_audio_option' );
 	$updated_vars = false;
 	$new_hook = array('name' =>'','action' =>'','filter' =>'');
 	$new_hook_error = array();
@@ -216,12 +213,6 @@ function visualcaptcha_admin_settings_page () {
 			
 			//update 
 			update_option( 'visualcaptcha_form_hooks' , $visualcaptcha_current_hooks );
-			$updated_vars = true;
-		}
-		
-		//update the audioOption
-		if ( isset($_POST['visualcaptcha_form_audio_option'] ) ) {
-			update_option( 'visualcaptcha_form_audio_option' , $_POST['visualcaptcha_form_audio_option'] );
 			$updated_vars = true;
 		}
 	}
@@ -277,7 +268,6 @@ function visualcaptcha_admin_settings_page () {
 	/////////
 	if ( !empty( $updated_vars ) ) {
 		$visualcaptcha_current_hooks = get_option( 'visualcaptcha_form_hooks' );
-		$audioOption = get_option( 'visualcaptcha_form_audio_option' );
 	}
 	
 	
@@ -361,16 +351,6 @@ function visualcaptcha_admin_settings_page () {
                     </td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row"><?php _e( 'Audio Option' , 'visualcaptcha' ) ?></th>
-                    <td>
-                        <select name="visualcaptcha_form_audio_option">
-                            <option value="1" <?php echo ( !empty( $audioOption ) )? 'selected="selected"' : '' ?>><?php _e('Yes', 'visualcaptcha' )?></option>
-                            <option value="0" <?php echo ( empty( $audioOption ) )? 'selected="selected"' : '' ?>><?php _e('No', 'visualcaptcha' )?></option>
-                        </select><br />
-                        <small><?php _e('This option is only for HTML5 templates.', 'visualcaptcha' ) ?></small>
-                    </td>
-                </tr>
-                <tr valign="top">
                     <th></th>
                     <td>
                     	<?php wp_nonce_field( 'visualcaptcha_update', 'visualcaptcha_nonce' ); ?>
@@ -437,7 +417,6 @@ function visualcaptcha_admin_register_settings () {
 		);
 		
 		add_option( 'visualcaptcha_form_hooks' , $default_hooks , '', 'yes' );
-		add_option( 'visualcaptcha_form_audio_option' , true , '', 'yes' );
 		
 	}
 	
@@ -446,7 +425,6 @@ function visualcaptcha_admin_register_settings () {
 //visualCaptcha deactivate function
 function visualcaptcha_admin_remove_settings() {
 	delete_option( 'visualcaptcha_form_hooks');
-	delete_option( 'visualcaptcha_form_audio_option');
 }
 
 /////////////////////////
@@ -556,8 +534,10 @@ add_action( 'pre_current_active_plugins', 'add_visualcaptcha_admin_plugins_list_
 add_action( 'admin_menu', 'add_visualcaptcha_admin_menu' );
 
 //adding jQuery and jQuery IU to template
-if ( !is_admin() ) { 
-	wp_enqueue_script("jquery");
-	wp_enqueue_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js', array('jquery'), '1.9.1');
+if ( ! is_admin() ) { 
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js', array('jquery'), '1.9.1' );
+	wp_enqueue_style( 'visualcaptcha', plugins_url('inc/visualcaptcha.css', __FILE__) );
+	wp_enqueue_script( 'visualcaptcha', plugins_url('inc/visualcaptcha.js', __FILE__), array('jquery', 'jquery-ui'), '4.1.0', true );
 }
 ?>

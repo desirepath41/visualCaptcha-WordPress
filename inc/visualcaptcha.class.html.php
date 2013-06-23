@@ -1,6 +1,6 @@
 <?php
 /**
- * visualCaptchaHTML class by emotionLoop - 2013.06.17
+ * visualCaptcha HTML class by emotionLoop - 2013.06.23
  *
  * This class handles the HTML for the main visualCaptcha class.
  *
@@ -8,79 +8,64 @@
  *
  * @author emotionLoop | http://emotionloop.com
  * @link http://visualcaptcha.net
- * @package visualCaptcha Wordpress
- * @license GNU GPL v3 | http://www.gnu.org/licenses/gpl.html
- * @version 4.0.4
+ * @package visualCaptcha (WordPress)
+ * @license GNU GPL v3
+ * @version 4.1.0
  */
 namespace visualCaptcha;
 
-class visualcaptcha_html {
+class HTML {
 	
 	public function __construct() {
 	}
 	
-	public static function get( $type, $fieldName, $accessibilityFieldName, $formId, $captchaText, $options, $optionsProperties, $jsFile, $cssFile, $audioOption ) {
-
+	public static function get( $type, $fieldName, $accessibilityFieldName, $formId, $captchaText, $options ) {
 		$html = '';
-		
-		$limit = count($options);
 		
 		ob_start();
 ?>
-<link rel="stylesheet" href="<?php echo $cssFile; ?>">
-<div class="eL-captcha type-<?php echo $type; ?> clearfix">
-	<p class="eL-explanation type-<?php echo $type; ?>"><span class="desktopText"><?php _e( 'Drag the', 'visualcaptcha' ); ?> <strong><?php echo $captchaText; ?></strong> <?php _e( 'to the circle on the side', 'visualcaptcha'); ?>.</span><span class="mobileText"><?php _e( 'Touch the', 'visualcaptcha'); ?> <strong><?php echo $captchaText; ?></strong> <?php _e( 'to move it to the circle on the side', 'visualcaptcha'); ?>.</span></p>
-	<div class="eL-possibilities type-<?php echo $type; ?> clearfix">
-<?php
-		for ( $i = 0; $i < $limit; $i++ ) {
-			$name = $options[ $i ];
-			$image = $optionsProperties[ $name ][ 0 ];
-			$text = $optionsProperties[ $name ][ 1 ];
-?>
-		<img src="<?php echo $image; ?>" class="vc-<?php echo $name; ?>" data-value="<?php echo $name; ?>" alt="" title="">
-<?php
-		}
-?>
-	</div>
-    <input type="hidden" name="visualcaptcha" value="1" />
-	<div class="eL-where2go type-<?php echo $type; ?> clearfix">
-	</div>
-<?php 
-	if ( !empty( $audioOption ) ) {
-?>
-	<p class="eL-accessibility type-<?php echo $type; ?>"><a href="#" title="<?php _e('Accessibility option: listen to a question and answer it!', 'visualcaptcha' ); ?>"><img src="<?php echo \visualCaptcha\visualcaptcha::$imagesPath; ?>accessibility.png" alt="<?php _e('Accessibility option: listen to a question and answer it!', 'visualcaptcha' ); ?>"></a></p>
-	<div class="eL-accessibility type-<?php echo $type; ?>">
-		<p><?php _e( 'Type below the', 'visualcaptcha' ); ?> <strong><?php echo 'answer'; ?></strong> <?php _e( 'to what you hear. Numbers or words:', 'visualcaptcha' ); ?></p>
-		<audio preload="preload">
-			<source src="<?php echo \visualCaptcha\visualcaptcha::$audioFile; ?>?t=ogg&amp;r=<?php echo time(); ?>" type="audio/ogg">
-			<source src="<?php echo \visualCaptcha\visualcaptcha::$audioFile; ?>?t=mp3&amp;r=<?php echo time(); ?>" type="audio/mpeg">
-			<?php _e( 'Your browser does not support the audio element.', 'visualcaptcha' ); ?>
-		</audio>
-	</div>
-<?php 
-	}
-?>
-</div>
 <script>
-ft = jQuery('.eL-captcha').parent('form')
-jQuery('input[name="visualcaptcha"]').val(ft.attr('id'))
-
 window.vCVals = {
-	'f': ft.attr('id'),
+	'f': '<?php echo $formId; ?>',
 	'n': '<?php echo $fieldName; ?>',
 	'a': '<?php echo $accessibilityFieldName; ?>'
 };
 </script>
-<style>
-/*forcing the correct path to the drop here image*/
-div.eL-captcha > div.eL-where2go {
-	background: transparent url('<?php echo WP_CONTENT_URL ?>/plugins/visualcaptcha/images/visualcaptcha/dropzone.png') center center no-repeat !important;
-}
-div.eL-captcha > div.eL-where2go.retina {
-	background: transparent url('<?php echo WP_CONTENT_URL ?>/plugins/visualcaptcha/images/visualcaptcha/dropzone@2x.png') center center no-repeat !important;
-}
-</style>
-<script src="<?php echo $jsFile; ?>" ></script>
+<div class="eL-captcha type-<?php echo $type; ?> clearfix">
+	<p class="eL-explanation type-<?php echo $type; ?>"><span class="desktopText"><?php _e( 'Drag the', 'visualcaptcha' ); ?> <strong><?php _e( $captchaText, 'visualcaptcha' ); ?></strong> <?php _e( 'to the circle on the side', 'visualcaptcha' ); ?>.</span><span class="mobileText"><?php _e( 'Touch the', 'visualcaptcha' ); ?> <strong><?php _e( $captchaText, 'visualcaptcha' ); ?></strong> <?php _e( 'to move it to the circle on the side', 'visualcaptcha' ); ?>.</span></p>
+	<div class="eL-possibilities type-<?php echo $type; ?> clearfix">
+<?php
+		$limit = count( $options );
+
+		for ( $i = 0; $i < $limit; $i++ ) {
+			$name = $options[ $i ];
+?>
+		<img src="<?php echo WP_PLUGIN_URL . '/visualcaptcha/' . Captcha::$imageFile; ?>?i=<?php echo ($i + 1); ?>&amp;r=<?php echo time(); ?>" class="vc-<?php echo ($i + 1); ?>" data-value="<?php echo $name; ?>" alt="" title="">
+<?php
+		}
+?>
+	</div>
+	<input type="hidden" name="visualcaptcha" value="1" />
+	<div class="eL-where2go type-<?php echo $type; ?> clearfix">
+		<p><?php _e( 'Drop<br>Here', 'visualcaptcha' ); ?></p>
+	</div>
+	<p class="eL-accessibility type-<?php echo $type; ?>"><a href="#" title="<?php echo 'Accessibility option: listen to a question and answer it!'; ?>"><img src="<?php echo WP_PLUGIN_URL . '/visualcaptcha/' . Captcha::$imagesPath; ?>accessibility.png" alt="<?php _e( 'Accessibility option: listen to a question and answer it!', 'visualcaptcha' ); ?>"></a></p>
+	<div class="eL-accessibility type-<?php echo $type; ?>">
+		<p><?php _e( 'Type below the', 'visualcaptcha' ); ?> <strong><?php _e( 'answer', 'visualcaptcha' ); ?></strong> <?php _e( 'to what you hear. Numbers or words:', 'visualcaptcha' ); ?></p>
+		<audio preload="preload">
+			<source src="<?php echo WP_PLUGIN_URL . '/visualcaptcha/' . Captcha::$audioFile; ?>?t=ogg&amp;r=<?php echo time(); ?>" type="audio/ogg">
+			<source src="<?php echo WP_PLUGIN_URL . '/visualcaptcha/' . Captcha::$audioFile; ?>?t=mp3&amp;r=<?php echo time(); ?>" type="audio/mpeg">
+			<?php _e( 'Your browser does not support the audio element.', 'visualcaptcha' ); ?>
+		</audio>
+	</div>
+</div>
+<script>
+(function( $ ) {
+	var $formElement = $('.eL-captcha').closest( 'form' );
+	$formElement.find('input[name="visualcaptcha"]').val( $formElement.attr('id') );
+	window.vCVals.f = $formElement.attr( 'id' );
+})( jQuery );
+</script>
 <?php
 		$html = ob_get_clean();
 		return $html;

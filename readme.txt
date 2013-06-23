@@ -4,7 +4,7 @@ Donate link: http://emotionloop.com/donate?app=visualCaptcha
 Tags: captcha, visualcaptcha, visual captcha, wordpress captcha, easy captcha, safe captcha, spam filter, spam protection, comments, lost password, user login, register
 Requires at least: 3.4.1
 Tested up to: 3.5
-Stable tag: 4.0.4
+Stable tag: 4.1.0
 License: GNU GPL v3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -28,7 +28,7 @@ We found a great concept for this answer at Ajax Fancy Captcha - jQuery Plugin, 
 == Installation ==
 Wordpress installation
 
-1. download visualCaptcha
+1. Download visualCaptcha
 2. Go to 'Plugins' in the Admin Wordpress section.
 3. Click on 'Add New'.
 4. Click on 'Upload', choose the file and press install.
