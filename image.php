@@ -1,6 +1,6 @@
 <?php
 /**
- * visualCaptcha Image file by emotionLoop - 2013.06.23
+ * visualCaptcha Image file by emotionLoop - 2013.08.17
  *
  * This file will get the proper session image file and return it, so that it's not possible to know through the front-end code the image file name or even which image file it is.
  *
@@ -10,7 +10,7 @@
  * @link http://visualcaptcha.net
  * @package visualCaptcha (WordPress)
  * @license GNU GPL v3
- * @version 4.1.0
+ * @version 4.2.0
  */
 namespace visualCaptcha;
 
@@ -21,16 +21,16 @@ include( 'inc/visualcaptcha.class.php' );
 $visualCaptcha = new Captcha();
 
 if ( ! isset($_GET['i']) ) {
-	$_GET['i'] = 0;
+    $_GET['i'] = 0;
 } else {
-	$_GET['i'] = (int) $_GET['i'];
-	--$_GET['i'];
+    $_GET['i'] = (int) $_GET['i'];
+    --$_GET['i'];
 }
 
 if ( isset($_GET['retina']) && ! empty($_GET['retina']) ) {
-	$getRetina = true;
+    $getRetina = true;
 } else {
-	$getRetina = false;
+    $getRetina = false;
 }
 
 $image = $visualCaptcha->getImageFilePath( $_GET['i'], $getRetina );

@@ -6,7 +6,7 @@ This repo is copied to the WordPress subversion one, we just prefer git to actua
 
 ## Current Version
 
-Current version is 4.1.0.
+Current version is 4.2.0.
 
 ## Demo
 

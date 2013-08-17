@@ -1,6 +1,6 @@
 <?php
 /**
- * visualCaptcha Audio file by emotionLoop - 2013.06.23
+ * visualCaptcha Audio file by emotionLoop - 2013.08.17
  *
  * This file will get the proper session audio file and play it, so that it's not possible to know through the front-end code the audio file name or even which audio file it is.
  *
@@ -10,7 +10,7 @@
  * @link http://visualcaptcha.net
  * @package visualCaptcha (WordPress)
  * @license GNU GPL v3
- * @version 4.1.0
+ * @version 4.2.0
  */
 namespace visualCaptcha;
 
@@ -23,20 +23,20 @@ $visualCaptcha = new Captcha();
 $file = $visualCaptcha->getAudioFilePath();
 
 if ( ! isset($_GET['t']) ) {
-	$_GET['t'] = 'mp3';
+    $_GET['t'] = 'mp3';
 }
 
 switch ( $_GET['t'] ) {
-	case 'ogg':
-		$mimeType = 'audio/ogg';
-		$extension = 'ogg';
-		$file = str_replace( '.mp3', '.ogg', $file );
-	break;
-	case 'mp3':
-	default:
-		$mimeType = 'audio/mpeg';
-		$extension = 'mp3';
-	break;
+    case 'ogg':
+        $mimeType = 'audio/ogg';
+        $extension = 'ogg';
+        $file = str_replace( '.mp3', '.ogg', $file );
+    break;
+    case 'mp3':
+    default:
+        $mimeType = 'audio/mpeg';
+        $extension = 'mp3';
+    break;
 }
 
 header( 'Pragma: public' );

@@ -4,7 +4,7 @@ Plugin Name: visualCaptcha
 Plugin URI:  http://visualcaptcha.net/
 Description: The easiest way to implement an unusual Captcha with images instead of text and drag & drop capabilities.
 Author: emotionLoop
-Version: 4.1.0  Wordpress 
+Version: 4.2.0 Wordpress 
 Author URI: http://emotionloop.com/
 License: GNU GPL v3
 */
@@ -279,7 +279,7 @@ function visualcaptcha_admin_settings_page () {
 	
 	if( empty( $new_hook_error ) && isset( $_POST[ 'visualcaptcha_nonce_opt' ] ) ) { ?>
 <div class="updated"><p><strong><?php _e('visualCaptcha option added.', 'visualcaptcha' ); ?></strong></p></div>
-        <?php 
+		<?php 
 	}
 	
 	if( !empty( $new_hook_error ) && isset( $_POST[ 'visualcaptcha_nonce_opt' ] ) ) {
@@ -289,12 +289,12 @@ function visualcaptcha_admin_settings_page () {
 		} else if( isset( $new_hook_error[ 'action' ] ) ) {
 						?>
 <div class="error"><p><strong><?php _e('This action is already being used by visualCaptcha.', 'visualcaptcha' ); ?></strong></p></div>
-                        <?php
+						<?php
 		} else {
 			//normal error
 						?>
 <div class="error"><p><strong><?php _e('Please fill in correctly all the fields before adding an option to visualCaptcha.', 'visualcaptcha' ); ?></strong></p></div>
-                        <?php
+						<?php
 		}
 	}
 ?>
@@ -309,84 +309,84 @@ function visualcaptcha_admin_settings_page () {
 </style>
 <div class="wrap">
 	<div>
-    	<h2><?php _e('visualCaptcha by emotionLoop', 'visualcaptcha' ); ?></h2>
-    </div>
-    <div>
-    	<div class="visualcaptcha_promo_img"><img src="<?php echo WP_CONTENT_URL."/plugins/visualcaptcha/images/visualcaptcha-screenshot.png" ?>" alt="emotionLoop" /></div>
-    	<p><strong>visualCaptcha</strong> is an easy to implement secure Captcha <br /><strong>with images</strong> instead of text <strong>and drag & drop</strong> capabilities (and mobile-friendly).</p>
-        <p>&#10004; Accessible<br />&#10004; Retina-ready<br />&#10004; Easy to install<br />&#10004; Easy to use<br />&#10004; Secure<br />&#10004; Customizable</p>
-        <div class="clear"></div>
-    </div>
+		<h2><?php _e('visualCaptcha by emotionLoop', 'visualcaptcha' ); ?></h2>
+	</div>
+	<div>
+		<div class="visualcaptcha_promo_img"><img src="<?php echo WP_CONTENT_URL."/plugins/visualcaptcha/images/visualcaptcha-screenshot.png" ?>" alt="emotionLoop" /></div>
+		<p><strong>visualCaptcha</strong> is an easy to implement secure Captcha <br /><strong>with images</strong> instead of text <strong>and drag & drop</strong> capabilities (and mobile-friendly).</p>
+		<p>&#10004; Accessible<br />&#10004; Retina-ready<br />&#10004; Easy to install<br />&#10004; Easy to use<br />&#10004; Secure<br />&#10004; Customizable</p>
+		<div class="clear"></div>
+	</div>
 	<div class="visualcaptcha_settings_title">
-    	<h3><?php _e('visualCaptcha Settings', 'visualcaptcha' ); ?> <small><a href="http://emotionloop.com/donate?app=visualCaptcha<?php echo visualcaptcha_donate() ?>&tkc=wpvctl" target="_new">Please DONATE</a></small></h3>
-    </div>
-    <div class="visualcaptcha_form_container">
-        <form method="post" action="admin.php?page=<?php echo $_GET['page'] ?>">
-            <table class="form-table">
-                <tr valign="top">
-                    <th scope="row"><?php _e('Add visualCaptcha to:', 'visualcaptcha' ); ?> </th>
-                    <td>
-                        
-            <?php 
-            foreach ( $visualcaptcha_current_hooks as $hook => $hook_data ) { 
-                if ( empty( $hook_data[ 'action' ] ) && !isset( $hook_data[ 'user_opt' ] ) ) {
-                    continue;
-                }
+		<h3><?php _e('visualCaptcha Settings', 'visualcaptcha' ); ?> <small><a href="http://emotionloop.com/donate?app=visualCaptcha<?php echo visualcaptcha_donate() ?>&tkc=wpvctl" target="_new">Please DONATE</a></small></h3>
+	</div>
+	<div class="visualcaptcha_form_container">
+		<form method="post" action="admin.php?page=<?php echo $_GET['page'] ?>">
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><?php _e('Add visualCaptcha to:', 'visualcaptcha' ); ?> </th>
+					<td>
+						
+			<?php 
+			foreach ( $visualcaptcha_current_hooks as $hook => $hook_data ) { 
+				if ( empty( $hook_data[ 'action' ] ) && !isset( $hook_data[ 'user_opt' ] ) ) {
+					continue;
+				}
 				$opt_name = $hook_data[ 'name' ];
 				if ( isset( $hook_data[ 'filter' ] ) ) {
 					$opt_name = $hook_data[ 'name' ].' (<strong>'.__('show', 'visualcaptcha').':</strong> '.$hook.' <strong>'.__('validate', 'visualcaptcha').':</strong> '.$hook_data[ 'filter' ].')' ;
 				}
-            ?>
-                            <label>
-                                <input type="checkbox" name="visualcaptcha_form_hooks[]" value="<?php echo $hook; ?>" <?php echo ( isset( $hook_data[ 'checked' ] ) && !empty($hook_data[ 'checked' ]  ) ) ? 'checked="checked"' : ''; ?> /> 
-                                <?php echo $opt_name ?>
-                            </label> - 
-                            <select name="<?php echo $hook; ?>_orientation" id="<?php echo $hook; ?>_orientation">
-                                <option value="1" <?php echo ( isset( $hook_data[ 'vertical_opt' ] ) &&  !empty( $hook_data[ 'vertical_opt' ] ) )? 'selected="selected"' : '' ?> ><?php _e( 'vertical captcha', 'visualcaptcha' ) ?></option>
-                                <option value="0" <?php echo ( isset( $hook_data[ 'vertical_opt' ] ) &&  empty( $hook_data[ 'vertical_opt' ] ) )? 'selected="selected"' : '' ?> ><?php _e( 'horizontal captcha', 'visualcaptcha' ) ?>  </option>
-                            </select><br />
-            <?php 
-            }
-            ?>
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th></th>
-                    <td>
-                    	<?php wp_nonce_field( 'visualcaptcha_update', 'visualcaptcha_nonce' ); ?>
-                    	<?php submit_button( __('Update visualCaptcha', 'visualcaptcha' ), 'submit', 'submit' )  ?>
+			?>
+							<label>
+								<input type="checkbox" name="visualcaptcha_form_hooks[]" value="<?php echo $hook; ?>" <?php echo ( isset( $hook_data[ 'checked' ] ) && !empty($hook_data[ 'checked' ]  ) ) ? 'checked="checked"' : ''; ?> /> 
+								<?php echo $opt_name ?>
+							</label> - 
+							<select name="<?php echo $hook; ?>_orientation" id="<?php echo $hook; ?>_orientation">
+								<option value="1" <?php echo ( isset( $hook_data[ 'vertical_opt' ] ) &&  !empty( $hook_data[ 'vertical_opt' ] ) )? 'selected="selected"' : '' ?> ><?php _e( 'vertical captcha', 'visualcaptcha' ) ?></option>
+								<option value="0" <?php echo ( isset( $hook_data[ 'vertical_opt' ] ) &&  empty( $hook_data[ 'vertical_opt' ] ) )? 'selected="selected"' : '' ?> ><?php _e( 'horizontal captcha', 'visualcaptcha' ) ?>  </option>
+							</select><br />
+			<?php 
+			}
+			?>
 					</td>
-                </tr>
-            </table>
-        </form>
-        
-        <form method="post" action="admin.php?page=<?php echo $_GET['page'] ?>">
-            <table class="form-table">
-                <tr valign="top">
-                    <th scope="row"><?php _e('Add custom options', 'visualcaptcha' ); ?> </th>
-                    <td>
-                    	<label class="<?php echo ( isset($new_hook_error['visualcaptcha_add_opt_name'] ) )? 'visualcaptcha_error' : '' ; ?>"><?php _e('Option Name', 'visualcaptcha' ) ?> *</label><br />
-                        <input name="visualcaptcha_add_opt_name" class="visualcatpcha_form_text_input" value="<?php echo $new_hook['name'] ?>"/> <small>(<?php _e('Name for the "Add visualCaptcha to:" List', 'visualcaptcha' ) ?>)</small><br />
-                    	<label class="<?php echo ( isset($new_hook_error['visualcaptcha_add_opt_action'] ) )? 'visualcaptcha_error' : '' ; ?>"><?php _e('Display Hook', 'visualcaptcha' ) ?> *</label><br />
-                        <input name="visualcaptcha_add_opt_action_hook" class="visualcatpcha_form_text_input"  value="<?php echo $new_hook['action'] ?>"/> <small>(<?php _e('Action Hook used to show visualCaptcha - i.e. "login_form"', 'visualcaptcha' ) ?>)</small><br />
-                    	<label class="<?php echo ( isset($new_hook_error['visualcaptcha_add_opt_filter'] ) )? 'visualcaptcha_error' : '' ; ?>"><?php _e('Validation Hook', 'visualcaptcha' ) ?> *</label><br />
-                        <input name="visualcaptcha_add_opt_filter_hook" class="visualcatpcha_form_text_input"  value="<?php echo $new_hook['filter'] ?>"/> <small>(<?php _e('Filter Hook used to validate a visualCaptcha submission - i.e. "authenticate"', 'visualcaptcha' ) ?>)</small><br />
-                        <small><a href="http://adambrown.info/p/wp_hooks/version/" target="_new"><?php _e('DEFAULT HOOKS REFERENCE', 'visualcaptcha' ) ?></a></small><br /><br />
-                        <label class="<?php echo ( isset($new_hook_error['visualcaptcha_terms'] ) )? 'visualcaptcha_error' : '' ; ?>"><input type="checkbox" name="visualcaptcha_terms" value="1" /> <?php _e('By using this option you confirm that you have the proper knowledge to use Wordpress Actions and Filters. If you don\'t, please don\'t use it') ?> *</label><br />
-                    	<?php wp_nonce_field( 'visualcaptcha_addpot', 'visualcaptcha_nonce_opt' ); ?>
-                    	<a href="http://emotionloop.com/donate?app=visualCaptcha<?php echo visualcaptcha_donate() ?>&tkc=wpvcbt" target="_new">Please DONATE</a><?php submit_button( __('Add visualCaptcha Option', 'visualcaptcha' ), 'submit', 'submit' )  ?>
-                        *<small> - <?php _e('Required fields', 'visualcaptcha' ) ?></small>
-                    </td>
-                </tr>
-            </table>
-        </form>
+				</tr>
+				<tr valign="top">
+					<th></th>
+					<td>
+						<?php wp_nonce_field( 'visualcaptcha_update', 'visualcaptcha_nonce' ); ?>
+						<?php submit_button( __('Update visualCaptcha', 'visualcaptcha' ), 'submit', 'submit' )  ?>
+					</td>
+				</tr>
+			</table>
+		</form>
+		
+		<form method="post" action="admin.php?page=<?php echo $_GET['page'] ?>">
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><?php _e('Add custom options', 'visualcaptcha' ); ?> </th>
+					<td>
+						<label class="<?php echo ( isset($new_hook_error['visualcaptcha_add_opt_name'] ) )? 'visualcaptcha_error' : '' ; ?>"><?php _e('Option Name', 'visualcaptcha' ) ?> *</label><br />
+						<input name="visualcaptcha_add_opt_name" class="visualcatpcha_form_text_input" value="<?php echo $new_hook['name'] ?>"/> <small>(<?php _e('Name for the "Add visualCaptcha to:" List', 'visualcaptcha' ) ?>)</small><br />
+						<label class="<?php echo ( isset($new_hook_error['visualcaptcha_add_opt_action'] ) )? 'visualcaptcha_error' : '' ; ?>"><?php _e('Display Hook', 'visualcaptcha' ) ?> *</label><br />
+						<input name="visualcaptcha_add_opt_action_hook" class="visualcatpcha_form_text_input"  value="<?php echo $new_hook['action'] ?>"/> <small>(<?php _e('Action Hook used to show visualCaptcha - i.e. "login_form"', 'visualcaptcha' ) ?>)</small><br />
+						<label class="<?php echo ( isset($new_hook_error['visualcaptcha_add_opt_filter'] ) )? 'visualcaptcha_error' : '' ; ?>"><?php _e('Validation Hook', 'visualcaptcha' ) ?> *</label><br />
+						<input name="visualcaptcha_add_opt_filter_hook" class="visualcatpcha_form_text_input"  value="<?php echo $new_hook['filter'] ?>"/> <small>(<?php _e('Filter Hook used to validate a visualCaptcha submission - i.e. "authenticate"', 'visualcaptcha' ) ?>)</small><br />
+						<small><a href="http://adambrown.info/p/wp_hooks/version/" target="_new"><?php _e('DEFAULT HOOKS REFERENCE', 'visualcaptcha' ) ?></a></small><br /><br />
+						<label class="<?php echo ( isset($new_hook_error['visualcaptcha_terms'] ) )? 'visualcaptcha_error' : '' ; ?>"><input type="checkbox" name="visualcaptcha_terms" value="1" /> <?php _e('By using this option you confirm that you have the proper knowledge to use Wordpress Actions and Filters. If you don\'t, please don\'t use it') ?> *</label><br />
+						<?php wp_nonce_field( 'visualcaptcha_addpot', 'visualcaptcha_nonce_opt' ); ?>
+						<a href="http://emotionloop.com/donate?app=visualCaptcha<?php echo visualcaptcha_donate() ?>&tkc=wpvcbt" target="_new">Please DONATE</a><?php submit_button( __('Add visualCaptcha Option', 'visualcaptcha' ), 'submit', 'submit' )  ?>
+						*<small> - <?php _e('Required fields', 'visualcaptcha' ) ?></small>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
-    <div>
-    	<p><strong><?php _e('TRANSLATIONS:', 'visualcaptcha' ) ?></strong> <?php _e('this module can be translated! For more information please follow this link:', 'visualcaptcha' )?> <a href="http://codex.wordpress.org/Translating_WordPress#Localization_Technology"><?php _e('Translating WordPress', 'visualcaptcha' ) ?></a>.</p>
-    	<p>If you need help, you can reach us on <a href="https://twitter.com/emotionLoop" target="_new">Twitter</a> or by email at <a href="mailto:hello@emotionloop.com">hello@emotionloop.com</a>.</p>
-    </div>
+	<div>
+		<p><strong><?php _e('TRANSLATIONS:', 'visualcaptcha' ) ?></strong> <?php _e('this module can be translated! For more information please follow this link:', 'visualcaptcha' )?> <a href="http://codex.wordpress.org/Translating_WordPress#Localization_Technology"><?php _e('Translating WordPress', 'visualcaptcha' ) ?></a>.</p>
+		<p>If you need help, you can reach us on <a href="https://twitter.com/emotionLoop" target="_new">Twitter</a> or by email at <a href="mailto:hello@emotionloop.com">hello@emotionloop.com</a>.</p>
+	</div>
 </div>
-    <?php
+	<?php
 }
 /////////////////////////
 //visualCaptcha register settings
@@ -458,10 +458,10 @@ if( !function_exists( 'emotionloop_admin_menu_render' ) ) {
 ?>
 <div class="wrap">
 	<div><img src="<?php echo WP_CONTENT_URL."/plugins/visualcaptcha/images/logo-header.png" ?>" alt="emotionLoop" /></div>
-    <div>
-        <h3><?php _e( 'emotionLoop plugins', 'emotionloop' ); ?></h3>
-        <hr />
-        <?php 
+	<div>
+		<h3><?php _e( 'emotionLoop plugins', 'emotionloop' ); ?></h3>
+		<hr />
+		<?php 
 			if ( !empty ( $emotionloop_plugins ) ) {
 				//loop plugins
 				foreach ( $emotionloop_plugins as $plugin_path => $plugin_info ) {
@@ -470,23 +470,23 @@ if( !function_exists( 'emotionloop_admin_menu_render' ) ) {
 					//if active
 					if ( isset ( $plugin_info['active'] ) && !empty ( $plugin_info['active'] ) ) {
 					?>
-        <b><?php echo $plugin_info['Name']; ?></b> <p><?php echo $plugin_info['Description'] ?> <br /><a href="admin.php?page=<?php echo $file; ?>"><?php _e( "Settings", 'emotionloop'); ?></a> | <a href="<?php echo $plugin_info['PluginURI']; ?>" target="_blank"><?php _e( "Read more", 'emotionloop'); ?></a> | <a href="http://emotionloop.com/donate?app=<?php echo $plugin_info['Name'] ?><?php echo visualcaptcha_donate() ?>&tkc=wpemlpg" target="_new">Please DONATE</a></p>
-                    <?php
+		<b><?php echo $plugin_info['Name']; ?></b> <p><?php echo $plugin_info['Description'] ?> <br /><a href="admin.php?page=<?php echo $file; ?>"><?php _e( "Settings", 'emotionloop'); ?></a> | <a href="<?php echo $plugin_info['PluginURI']; ?>" target="_blank"><?php _e( "Read more", 'emotionloop'); ?></a> | <a href="http://emotionloop.com/donate?app=<?php echo $plugin_info['Name'] ?><?php echo visualcaptcha_donate() ?>&tkc=wpemlpg" target="_new">Please DONATE</a></p>
+					<?php
 					} else {
 					// if not active
 						?>
-        <b><?php echo $plugin_info['Name']; ?></b> <p><?php echo $plugin_info['Description'] ?> <br /><a href="plugins.php?s=<?php echo $plugin_info['Name']; ?>"><?php _e( "Activate", 'emotionloop'); ?></a> | <a href="http://emotionloop.com/donate?app=<?php echo $plugin_info['Name'] ?><?php echo visualcaptcha_donate() ?>&tkc=wpemlpg" target="_new">Please DONATE</a></p>
+		<b><?php echo $plugin_info['Name']; ?></b> <p><?php echo $plugin_info['Description'] ?> <br /><a href="plugins.php?s=<?php echo $plugin_info['Name']; ?>"><?php _e( "Activate", 'emotionloop'); ?></a> | <a href="http://emotionloop.com/donate?app=<?php echo $plugin_info['Name'] ?><?php echo visualcaptcha_donate() ?>&tkc=wpemlpg" target="_new">Please DONATE</a></p>
 
 						<?php
 					}
 				}
 			}
 		?>
-        <p></p>
-        <p>
-        	<small><?php _e( "for more information about emotionLoop, please visit our site:", 'emotionloop'); ?> <strong><a href="http://emotionloop.com/?wp_plugins">emotionLoop</a></strong></small>
-        </p>
-    </div>
+		<p></p>
+		<p>
+			<small><?php _e( "for more information about emotionLoop, please visit our site:", 'emotionloop'); ?> <strong><a href="http://emotionloop.com/?wp_plugins">emotionLoop</a></strong></small>
+		</p>
+	</div>
 </div>
 <?php		
 	}
@@ -538,6 +538,6 @@ if ( ! is_admin() ) {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js', array('jquery'), '1.9.1' );
 	wp_enqueue_style( 'visualcaptcha', plugins_url('inc/visualcaptcha.css', __FILE__) );
-	wp_enqueue_script( 'visualcaptcha', plugins_url('inc/visualcaptcha.js', __FILE__), array('jquery', 'jquery-ui'), '4.1.0', true );
+	wp_enqueue_script( 'visualcaptcha', plugins_url('inc/visualcaptcha.js', __FILE__), array('jquery', 'jquery-ui'), '4.2.0', true );
 }
 ?>
