@@ -2,11 +2,13 @@
 
 The visualCaptcha WordPress plugin is at http://wordpress.org/plugins/visualcaptcha/
 
-This repo is copied to the WordPress subversion one, we just prefer git to actually manage the code
+This repo is copied to the WordPress subversion one, we just prefer git to actually manage the code.
+
+Composer and its packages are versioned because that makes it easier to just copy + deploy to the WordPress official SVN repo.
 
 ## Current Version
 
-Current version is 4.2.0.
+Current version is 5.0.0.
 
 ## Demo
 

@@ -1,0 +1,98 @@
+[
+    {
+        "name": "emotionloop/visualcaptcha",
+        "version": "0.0.2",
+        "version_normalized": "0.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/emotionLoop/visualCaptcha-packagist.git",
+            "reference": "f89c25c93172456893e5559c3551892f7413cf24"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/emotionLoop/visualCaptcha-packagist/zipball/f89c25c93172456893e5559c3551892f7413cf24",
+            "reference": "f89c25c93172456893e5559c3551892f7413cf24",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*"
+        },
+        "time": "2014-01-31 16:38:13",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "visualCaptcha": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "emotionLoop",
+                "email": "hello@emotionloop.com",
+                "homepage": "http://emotionloop.com"
+            }
+        ],
+        "description": "PHP library for visualCaptcha. Still requires you to have the front-end companion.",
+        "homepage": "http://visualcaptcha.net",
+        "keywords": [
+            "captcha",
+            "security",
+            "visualCaptcha"
+        ]
+    },
+    {
+        "name": "slim/slim",
+        "version": "2.4.2",
+        "version_normalized": "2.4.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/codeguy/Slim.git",
+            "reference": "3a2ac723f17b5d81607287ff28575d38b9fbc70e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/codeguy/Slim/zipball/3a2ac723f17b5d81607287ff28575d38b9fbc70e",
+            "reference": "3a2ac723f17b5d81607287ff28575d38b9fbc70e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "suggest": {
+            "ext-mcrypt": "Required for HTTP cookie encryption"
+        },
+        "time": "2014-02-16 18:18:25",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Slim": "."
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Josh Lockhart",
+                "email": "info@joshlockhart.com",
+                "homepage": "http://www.joshlockhart.com/"
+            }
+        ],
+        "description": "Slim Framework, a PHP micro framework",
+        "homepage": "http://github.com/codeguy/Slim",
+        "keywords": [
+            "microframework",
+            "rest",
+            "router"
+        ]
+    }
+]
