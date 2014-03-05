@@ -1,6 +1,6 @@
 {
     "private": true,
-    "version": "5.0.0",
+    "version": "5.0.1",
     "name": "emotionLoop/visualCaptcha-wordpress",
     "description": "visualCaptcha WordPress Plugin",
     "keywords": ["captcha", "visualCaptcha", "security", "wordpress", "plugin"],
@@ -15,6 +15,6 @@
     ],
     "require": {
         "slim/slim": "2.*",
-        "emotionloop/visualcaptcha": ">= 0.0.2"
+        "emotionloop/visualcaptcha": ">= 0.0.3"
     }
 }

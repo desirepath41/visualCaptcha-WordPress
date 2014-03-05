@@ -1,5 +1,5 @@
 {
-    "version": "0.0.2",
+    "version": "0.0.3",
     "name": "emotionloop/visualcaptcha",
     "description": "PHP library for visualCaptcha. Still requires you to have the front-end companion.",
     "keywords": ["captcha", "visualCaptcha", "security"],

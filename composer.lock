@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a1fe137fd788540fc01204393e84cc65",
+    "hash": "c728347c4f6e0803252b203e212cec62",
     "packages": [
         {
             "name": "emotionloop/visualcaptcha",
-            "version": "0.0.2",
+            "version": "0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/emotionLoop/visualCaptcha-packagist.git",
-                "reference": "f89c25c93172456893e5559c3551892f7413cf24"
+                "reference": "0849c5a0ca73e69f06175525ce2e786d1737a389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/emotionLoop/visualCaptcha-packagist/zipball/f89c25c93172456893e5559c3551892f7413cf24",
-                "reference": "f89c25c93172456893e5559c3551892f7413cf24",
+                "url": "https://api.github.com/repos/emotionLoop/visualCaptcha-packagist/zipball/0849c5a0ca73e69f06175525ce2e786d1737a389",
+                "reference": "0849c5a0ca73e69f06175525ce2e786d1737a389",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "security",
                 "visualCaptcha"
             ],
-            "time": "2014-01-31 16:38:13"
+            "time": "2014-03-05 19:15:36"
         },
         {
             "name": "slim/slim",

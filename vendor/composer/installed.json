@@ -1,53 +1,5 @@
 [
     {
-        "name": "emotionloop/visualcaptcha",
-        "version": "0.0.2",
-        "version_normalized": "0.0.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/emotionLoop/visualCaptcha-packagist.git",
-            "reference": "f89c25c93172456893e5559c3551892f7413cf24"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/emotionLoop/visualCaptcha-packagist/zipball/f89c25c93172456893e5559c3551892f7413cf24",
-            "reference": "f89c25c93172456893e5559c3551892f7413cf24",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "*"
-        },
-        "time": "2014-01-31 16:38:13",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "visualCaptcha": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "emotionLoop",
-                "email": "hello@emotionloop.com",
-                "homepage": "http://emotionloop.com"
-            }
-        ],
-        "description": "PHP library for visualCaptcha. Still requires you to have the front-end companion.",
-        "homepage": "http://visualcaptcha.net",
-        "keywords": [
-            "captcha",
-            "security",
-            "visualCaptcha"
-        ]
-    },
-    {
         "name": "slim/slim",
         "version": "2.4.2",
         "version_normalized": "2.4.2.0",
@@ -93,6 +45,54 @@
             "microframework",
             "rest",
             "router"
+        ]
+    },
+    {
+        "name": "emotionloop/visualcaptcha",
+        "version": "0.0.3",
+        "version_normalized": "0.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/emotionLoop/visualCaptcha-packagist.git",
+            "reference": "0849c5a0ca73e69f06175525ce2e786d1737a389"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/emotionLoop/visualCaptcha-packagist/zipball/0849c5a0ca73e69f06175525ce2e786d1737a389",
+            "reference": "0849c5a0ca73e69f06175525ce2e786d1737a389",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*"
+        },
+        "time": "2014-03-05 19:15:36",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "visualCaptcha": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "emotionLoop",
+                "email": "hello@emotionloop.com",
+                "homepage": "http://emotionloop.com"
+            }
+        ],
+        "description": "PHP library for visualCaptcha. Still requires you to have the front-end companion.",
+        "homepage": "http://visualcaptcha.net",
+        "keywords": [
+            "captcha",
+            "security",
+            "visualCaptcha"
         ]
     }
 ]

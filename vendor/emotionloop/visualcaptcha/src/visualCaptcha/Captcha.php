@@ -259,7 +259,7 @@ class Captcha {
             return false;
         }
 
-        $mimeType = mime_content_type( $filePath );
+        $mimeType = $this->getMimeType( $filePath );
 
         // Set the appropriate mime type
         $headers[ 'Content-Type' ] = $mimeType;
@@ -272,6 +272,56 @@ class Captcha {
         readfile( $filePath );
 
         return true;
+    }
+
+    // Get File's mime type
+    private function getMimeType( $filePath ) {
+        if ( function_exists('mime_content_type') ) {
+            return mime_content_type( $filePath );
+        } else {
+            // Some PHP 5.3 builds don't have mime_content_type because it's deprecated
+            if ( function_exists('finfo_open') ) {// Use finfo (right way)
+                $finfo = finfo_open( FILEINFO_MIME_TYPE );
+
+                if ( $mimetype = finfo_file($finfo, $filePath) ) {
+                    finfo_close( $finfo );
+                    return $mimetype;
+                }
+            } elseif ( function_exists('pathinfo') ) {// Use pathinfo
+                if ( $pathinfo = pathinfo($filePath) ) {
+                    $imagetypes = array( 'gif', 'jpg', 'png' );
+
+                    if ( in_array($pathinfo['extension'], $imagetypes) && getimagesize($filePath) ) {
+                        $size = getimagesize( $filePath );
+                        return $size[ 'mime' ];
+                    }
+                }
+            }
+
+            // Just figure out from a set of possibilities, if we didn't figure it out before
+            $extension = end( explode('.', $filePath) );
+
+            switch ( $extension ) {
+                case 'png':
+                    return 'image/png';
+
+                case 'gif':
+                    return 'image/gif';
+
+                case 'jpg':
+                case 'jpeg':
+                    return 'image/jpeg';
+
+                case 'mp3':
+                    return 'audio/mpeg3';
+
+                case 'ogg':
+                    return 'audio/ogg';
+
+                default:
+                    return 'application/octet-stream';
+            }
+        }
     }
 };
 
