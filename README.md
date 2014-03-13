@@ -8,7 +8,7 @@ Composer and its packages are versioned because that makes it easier to just cop
 
 ## Current Version
 
-Current version is 5.0.1.
+Current version is 5.0.2.
 
 ## Demo
 

@@ -2,7 +2,7 @@
 
 /*
   Plugin Name: visualCaptcha
-  Version: 5.0.1
+  Version: 5.0.2
   Plugin URI: http://visualcaptcha.net/
   Description: The best captcha alternative. Accessible, Mobile-friendly, and Retina-ready!
   Author: emotionLoop
