@@ -1,5 +1,7 @@
 # visualCaptcha for WordPress
 
+[![Code Climate](https://codeclimate.com/github/emotionLoop/visualCaptcha-WordPress/badges/gpa.svg)](https://codeclimate.com/github/emotionLoop/visualCaptcha-WordPress)
+
 The visualCaptcha WordPress plugin is at http://wordpress.org/plugins/visualcaptcha/
 
 This repo is copied to the WordPress subversion one, we just prefer git to actually manage the code.
