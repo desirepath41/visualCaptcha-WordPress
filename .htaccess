@@ -1,0 +1,12 @@
+#RewriteEngine On
+
+# Some hosts may require you to use the `RewriteBase` directive.
+# If you need to use the `RewriteBase` directive, it should be the
+# absolute physical path to the directory that contains this htaccess file.
+#
+# RewriteBase /
+
+#RewriteCond %{REQUEST_FILENAME} !-f
+
+# Note that if your WordPress install isn't in the root directory, you'll need to add that to the lines below (like `/blog/wp-content/...`)
+#RewriteRule ^app.php/ app.php [QSA,L]

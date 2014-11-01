@@ -2,7 +2,7 @@
 
 /*
   Plugin Name: visualCaptcha
-  Version: 5.0.3
+  Version: 5.0.4
   Plugin URI: http://visualcaptcha.net/
   Description: The best captcha alternative. Accessible, Mobile-friendly, and Retina-ready!
   Author: emotionLoop
@@ -100,7 +100,7 @@ function visualcaptcha_do_filter( $arg1, $arg2 = null, $arg3 = null ) {
 
             $isUser = is_a( $arg1, 'WP_User' );
 
-            if ( !empty( $isUser ) || is_bool( $arg1 ) || empty( $arg1 ) ) {
+            if ( ! empty( $isUser ) || is_bool( $arg1 ) || empty( $arg1 ) ) {
                 return new WP_Error(
                     'visualcaptcha_error',
                     '<strong>'. __( 'ERROR:' , 'visualcaptcha' ) .'</strong> ' . __( 'Captcha was invalid', 'visualcaptcha' )
@@ -116,7 +116,7 @@ function visualcaptcha_plugin_init() {
 
     $visualcaptcha_current_hooks = visualcaptcha_hooks();
 
-    if ( is_array($visualcaptcha_current_hooks) && !empty($visualcaptcha_current_hooks) ) {
+    if ( is_array($visualcaptcha_current_hooks) && ! empty($visualcaptcha_current_hooks) ) {
         foreach ( $visualcaptcha_current_hooks as $visualcaptcha_hook => $visualcaptcha_hook_data) {
             // not enabled on the admin panel -> do nothing
             if ( empty( $visualcaptcha_hook_data[ 'checked' ] ) ) {
@@ -124,33 +124,33 @@ function visualcaptcha_plugin_init() {
             }
 
 
-            //add action
-            if ( !empty( $visualcaptcha_hook_data[ 'action' ] ) ) {
+            // add action
+            if ( ! empty( $visualcaptcha_hook_data[ 'action' ] ) ) {
                 add_action( $visualcaptcha_hook, 'visualcaptcha_do_action' );
 
-                //add filter to a custom option
-                if ( isset( $visualcaptcha_hook_data[ 'filter' ] ) && !empty( $visualcaptcha_hook_data[ 'filter' ] ) ) {
-                    //ignore duplicate filters
-                    if ( !isset( $visualcaptcha_current_hooks [ $visualcaptcha_hook_data[ 'filter' ] ] ) ) {
-                        add_filter( $visualcaptcha_hook_data[ 'filter' ], 'visualcaptcha_do_filter',1000,3);
+                // add filter to a custom option
+                if ( isset( $visualcaptcha_hook_data[ 'filter' ] ) && ! empty( $visualcaptcha_hook_data[ 'filter' ] ) ) {
+                    // ignore duplicate filters
+                    if ( ! isset( $visualcaptcha_current_hooks [ $visualcaptcha_hook_data[ 'filter' ] ] ) ) {
+                        add_filter( $visualcaptcha_hook_data[ 'filter' ], 'visualcaptcha_do_filter', 1000, 3 );
                     }
                 }
             }
 
-            //add filter
+            // add filter
             if ( empty( $visualcaptcha_hook_data[ 'action' ] ) ) {
-                add_filter( $visualcaptcha_hook, 'visualcaptcha_do_filter',1000,3);
+                add_filter( $visualcaptcha_hook, 'visualcaptcha_do_filter', 1000, 3 );
             }
         }
     }
 }
 
 function visualcaptcha_scripts() {
-    wp_enqueue_style( 'visualcaptcha', plugins_url( 'public/visualcaptcha.css', __FILE__ ) );
+    wp_enqueue_style( 'visualcaptcha', plugins_url( 'public/visualcaptcha.css', __FILE__, '1.0.0' ) );
 
     wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'visualcaptcha.jquery', plugins_url( 'public/visualcaptcha.jquery.js', __FILE__ ), array( 'jquery' ), '1.0.0', true );
-    wp_enqueue_script( 'visualcaptcha.bootstrap', plugins_url( 'public/visualcaptcha.bootstrap.js', __FILE__ ), array( 'visualcaptcha.jquery' ), '1.0.0', true );
+    wp_enqueue_script( 'visualcaptcha.jquery', plugins_url( 'public/visualcaptcha.jquery.js', __FILE__ ), array( 'jquery' ), '1.0.5', true );
+    wp_enqueue_script( 'visualcaptcha.bootstrap', plugins_url( 'public/visualcaptcha.bootstrap.js', __FILE__ ), array( 'visualcaptcha.jquery' ), '1.0.1', true );
 
     wp_localize_script(
         'visualcaptcha.bootstrap',
@@ -165,24 +165,24 @@ function visualcaptcha_scripts() {
 function visualcaptcha_hooks() {
     $hooks = get_option( 'visualcaptcha_form_hooks' );
 
-    //install
-    //default hooks
+    // install
+    // default hooks
     if ( is_bool( $hooks ) && empty( $hooks ) ) {
         $default_hooks = array(
-            'login_form' => array( 'name' => __( 'Login Form' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'vertical_opt' => true ),
-            'authenticate' => array( 'name' => __( 'Authenticate Filter' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'vertical_opt' => false ),
-            'login_redirect' => array( 'name' => __( 'Login Redirect Form' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'vertical_opt' => false ),
+            'login_form' => array( 'name' => __( 'Login Form' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'images' => 6 ),
+            'authenticate' => array( 'name' => __( 'Authenticate Filter' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'images' => 6 ),
+            'login_redirect' => array( 'name' => __( 'Login Redirect Form' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'images' => 6 ),
 
-            'register_form' => array( 'name' => __( 'Register Form' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'vertical_opt' => false ),
-            'register_post' => array( 'name' => __( 'Register Post' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'vertical_opt' => false ),
-            'signup_extra_fields' => array( 'name' => __( 'Signup Extra Fields' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'vertical_opt' => false ),
+            'register_form' => array( 'name' => __( 'Register Form' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'images' => 6 ),
+            'register_post' => array( 'name' => __( 'Register Post' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'images' => 6 ),
+            'signup_extra_fields' => array( 'name' => __( 'Signup Extra Fields' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'images' => 6 ),
 
-            'lostpassword_form' => array( 'name' => __( 'Lost password Form' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'vertical_opt' => false ),
-            'allow_password_reset' => array( 'name' => __( 'Lost password Post' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'vertical_opt' => false ),
+            'lostpassword_form' => array( 'name' => __( 'Lost password Form' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'images' => 6 ),
+            'allow_password_reset' => array( 'name' => __( 'Lost password Post' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'images' => 6 ),
 
-            'comment_form_after_fields' => array( 'name' => __( 'Comment Form' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'vertical_opt' => false ),
-            'comment_form_logged_in_after' => array( 'name' => __( 'Comment Form ( logged in user )' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'vertical_opt' => false ),
-            'preprocess_comment' => array( 'name' => __( 'Pre-Process Comment' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'vertical_opt' => false ),
+            'comment_form_after_fields' => array( 'name' => __( 'Comment Form' , 'visualcaptcha' ), 'checked' => true, 'action' => true, 'images' => 6 ),
+            'comment_form_logged_in_after' => array( 'name' => __( 'Comment Form ( logged in user )' , 'visualcaptcha' ), 'checked' => true, 'action' => true ),
+            'preprocess_comment' => array( 'name' => __( 'Pre-Process Comment' , 'visualcaptcha' ), 'checked' => true, 'action' => false, 'images' => 6 )
         );
 
         add_option( 'visualcaptcha_form_hooks' , $default_hooks , '', 'yes' );
@@ -206,9 +206,9 @@ function visualcaptcha_donate() {
 }
 
 function visualcaptcha_options() {
-	if ( !current_user_can( 'manage_options' ) )  {
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-	}
+  	if ( ! current_user_can( 'manage_options' ) )  {
+  		  wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+  	}
 
     $reset = ( isset( $_POST[ 'reset' ] ) && $_POST[ 'reset' ] === 'Y' );
 
@@ -238,38 +238,40 @@ function visualcaptcha_options() {
         }
 
         if ( isset( $updated ) ) {
-            echo '<div class="updated"><p><strong>', __( 'Settings saved.', 'visualcaptcha' ), '</strong></p></div>';
+            echo '<div class="updated"><p><strong>' , __( 'Settings saved.', 'visualcaptcha' ) , '</strong></p></div>';
         }
 
-        //add new options
+        // add new options
         if ( isset( $_POST['visualcaptcha_nonce_opt']) && check_admin_referer( 'visualcaptcha_addpot', 'visualcaptcha_nonce_opt' ) )  {
             $hook_name = $_POST['visualcaptcha_add_opt_name'];
             $hook_action = $_POST['visualcaptcha_add_opt_action_hook'];
             $hook_filter = $_POST['visualcaptcha_add_opt_filter_hook'];
             $terms = $_POST['visualcaptcha_terms'];
-            //check for empty post data
+
+            // check for empty post data
             if ( empty( $hook_name ) ||  empty( $hook_action ) ||  empty( $hook_filter ) ) {
                 if ( empty( $hook_name ) ) { $new_hook_error['visualcaptcha_add_opt_name'] = 'error'; }
                 if ( empty( $hook_action ) ) { $new_hook_error['visualcaptcha_add_opt_action'] = 'error'; }
                 if ( empty( $hook_filter ) ) { $new_hook_error['visualcaptcha_add_opt_filter'] = 'error'; }
             }
-            //terms error
+
+            // terms error
             if ( empty( $terms ) ) {
                 $new_hook_error['visualcaptcha_terms'] = 'error';
             }
 
-            //action error
+            // action error
             if ( isset( $visualcaptcha_current_hooks[ $hook_action ] ) && empty( $new_hook_error )) {
                 $new_hook_error['action'] = 'error';
             }
-            //filter alert
+            // filter alert
             if ( isset( $visualcaptcha_current_hooks[ $hook_filter ] ) && empty( $visualcaptcha_current_hooks[ $hook_filter ][ 'action' ] ) && empty( $new_hook_error )) {
                 $new_hook_error['filter'] = 'alert';
             }
 
-            //if no error or just filter alert
+            // if no error or just filter alert
             if ( empty( $new_hook_error ) ||
-                (count($new_hook_error) == 1 && isset( $new_hook_error['filter'] )  )
+                ( count( $new_hook_error ) == 1 && isset( $new_hook_error['filter'] )  )
             ) {
                 $visualcaptcha_current_hooks[ $hook_action ] = array(
                     'name' => $hook_name,
@@ -341,9 +343,9 @@ function visualcaptcha_options() {
                         </label>
                         with
                         <select name="visualcaptcha_form_hooks[<?php echo $name ?>][images]">
-                            <option value="4" <?php echo ( isset( $hook[ 'images' ] ) &&  !empty( $hook[ 'images' ] )  && $hook[ 'images' ]==4 )? 'selected="selected"' : '' ?> >4</option>
-                            <option value="5" <?php echo ( isset( $hook[ 'images' ] ) &&  !empty( $hook[ 'images' ] ) && $hook[ 'images' ]==5 )? 'selected="selected"' : '' ?> >5</option>
-                            <option value="6" <?php echo ( isset( $hook[ 'images' ] ) &&  !empty( $hook[ 'images' ] ) && $hook[ 'images' ]==6 )? 'selected="selected"' : '' ?> >6</option>
+                            <option value="4" <?php echo ( isset( $hook[ 'images' ] ) &&  !empty( $hook[ 'images' ] )  && $hook[ 'images' ] == 4 )? 'selected="selected"' : '' ?> >4</option>
+                            <option value="5" <?php echo ( isset( $hook[ 'images' ] ) &&  !empty( $hook[ 'images' ] ) && $hook[ 'images' ] == 5 )? 'selected="selected"' : '' ?> >5</option>
+                            <option value="6" <?php echo ( isset( $hook[ 'images' ] ) &&  !empty( $hook[ 'images' ] ) && $hook[ 'images' ] == 6 )? 'selected="selected"' : '' ?> >6</option>
                         </select>
                         images
                     </td>

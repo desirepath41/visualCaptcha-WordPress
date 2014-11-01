@@ -1,0 +1,4 @@
+# Note that if your WordPress install isn't in the root directory, you'll need to add that to the lines below (like `/blog/wp-content/...`)
+location /wp-content/plugins/visualcaptcha/app.php/ {
+    try_files $uri $uri/ /wp-content/plugins/visualcaptcha/app.php?$args;
+}
