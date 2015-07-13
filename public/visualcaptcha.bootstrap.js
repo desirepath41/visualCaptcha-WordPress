@@ -19,7 +19,8 @@
                     url: captchaParams.url,
                     numberOfImages: numberOfImages,
                     namespace: namespace
-                }
+                },
+                language: captchaParams.language
             });
         });
     });

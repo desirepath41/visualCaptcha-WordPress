@@ -2,7 +2,7 @@
 
 /*
   Plugin Name: visualCaptcha
-  Version: 5.0.4
+  Version: 5.0.5
   Plugin URI: http://visualcaptcha.net/
   Description: The best captcha alternative. Accessible, Mobile-friendly, and Retina-ready!
   Author: emotionLoop
@@ -157,7 +157,15 @@ function visualcaptcha_scripts() {
         'captchaParams',
         array(
             'imgPath' => plugins_url( 'public/img/', __FILE__ ),
-            'url' => plugins_url( 'app.php', __FILE__ )
+            'url' => plugins_url( 'app.php', __FILE__ ),
+            'language' => array(
+                'accessibilityAlt' => __( 'Sound icon', 'visualcaptcha' ),
+                'accessibilityTitle' => __( 'Accessibility option: listen to a question and answer it!', 'visualcaptcha' ),
+                'accessibilityDescription' => __( 'Type below the <strong>answer</strong> to what you hear. Numbers or words:', 'visualcaptcha' ),
+                'explanation' => __( 'Click or touch the <strong>ANSWER</strong>', 'visualcaptcha' ),
+                'refreshAlt' => __( 'Refresh/reload icon', 'visualcaptcha' ),
+                'refreshTitle' => __( 'Refresh/reload: get new images and accessibility option!', 'visualcaptcha' )
+            )
         )
     );
 }
@@ -195,16 +203,6 @@ function visualcaptcha_menu() {
     add_options_page( 'visualCaptcha', 'visualCaptcha', 'manage_options', 'visualcaptcha', 'visualcaptcha_options' );
 }
 
-function visualcaptcha_donate() {
-    $donate = array(
-        '&amount=10',
-        '&amount=5',
-        ''
-    );
-    $key = array_rand ( $donate, 1 );
-    return $donate[ $key ];
-}
-
 function visualcaptcha_options() {
   	if ( ! current_user_can( 'manage_options' ) )  {
   		  wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
@@ -222,6 +220,12 @@ function visualcaptcha_options() {
     if ( $reset ) {
         echo '<div class="error"><p><strong>', __( 'Reset settings.', 'visualcaptcha' ), '</strong></p></div>';
     } else {
+        // Prevent errors
+        $new_hook = array(
+          'name' => '',
+          'action' => '',
+          'filter' => ''
+        );
 
         // Update actions on post
         if ( isset( $_POST[ 'visualcaptcha_form_hooks' ] ) && is_array( $_POST[ 'visualcaptcha_form_hooks' ] ) ) {
@@ -313,7 +317,6 @@ function visualcaptcha_options() {
             <div class="visualcaptcha_promo_img"><a href="http://visualcaptcha.net" target="_blank"><img src="<?php echo WP_CONTENT_URL , '/plugins/visualcaptcha/application.png'; ?>" alt="visualCaptcha on multiple devices" /></a></div>
             <p><strong>visualCaptcha</strong> is a configurable captcha solution, focusing on <strong>accessibility &amp; simplicity</strong> whilst maintaining <strong>security</strong>.</p>
             <p>More information over at <a href="http://visualcaptcha.net" target="_blank">visualcaptcha.net</a>.</p>
-            <p><a href="http://emotionloop.com/donate?app=visualCaptcha<?php echo visualcaptcha_donate(); ?>&tkc=wpvctl" target="_blank">Please consider a donation</a>.</p>
             <div class="clear"></div>
         </div>
         <div class="visualcaptcha_settings_title">

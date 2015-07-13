@@ -1,10 +1,9 @@
 === visualCaptcha ===
 Contributors: brunobernardino, jmigcosta
-Donate link: http://emotionloop.com/donate?app=visualCaptcha
 Tags: captcha, visualcaptcha, visual captcha, wordpress captcha, easy captcha, safe captcha, spam filter, spam protection, comments, lost password, user login, register
 Requires at least: 3.4.1
-Tested up to: 4.0
-Stable tag: 5.0.4
+Tested up to: 4.2.2
+Stable tag: 5.0.5
 License: GNU GPL v3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -14,7 +13,7 @@ The best captcha alternative. Accessible, Mobile-friendly, and Retina-ready!
 
 = Used and loved by millions =
 
-Thousands of websites are already enjoying the benefits of visualCaptcha, with less spam and more customer engagement. 
+Thousands of websites are already enjoying the benefits of visualCaptcha, with less spam and more customer engagement.
 
 What are you waiting for?
 
@@ -69,4 +68,4 @@ Manual Installation
 4. VisualCaptcha custom options.
 
 == Need Support? ==
-If you need help, you can reach use our <a href="http://support.emotionloop.com/kb/visualcaptcha" target="_blank">Support KB</a>.
+If you need help, you can reach use our <a href="http://emotionloop.com/#support" target="_blank">Support page</a>.

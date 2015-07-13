@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     2.4.2
+ * @version     2.6.1
  * @package     Slim
  *
  * MIT LICENSE
@@ -169,9 +169,9 @@ class Request
             return true;
         } elseif (isset($this->headers['X_REQUESTED_WITH']) && $this->headers['X_REQUESTED_WITH'] === 'XMLHttpRequest') {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -187,16 +187,18 @@ class Request
      * Fetch GET and POST data
      *
      * This method returns a union of GET and POST data as a key-value array, or the value
-     * of the array key if requested; if the array key does not exist, NULL is returned.
+     * of the array key if requested; if the array key does not exist, NULL is returned,
+     * unless there is a default value specified.
      *
      * @param  string           $key
+     * @param  mixed            $default
      * @return array|mixed|null
      */
-    public function params($key = null)
+    public function params($key = null, $default = null)
     {
         $union = array_merge($this->get(), $this->post());
         if ($key) {
-            return isset($union[$key]) ? $union[$key] : null;
+            return isset($union[$key]) ? $union[$key] : $default;
         }
 
         return $union;
@@ -576,10 +578,11 @@ class Request
      */
     public function getIp()
     {
-        if (isset($this->env['X_FORWARDED_FOR'])) {
-            return $this->env['X_FORWARDED_FOR'];
-        } elseif (isset($this->env['CLIENT_IP'])) {
-            return $this->env['CLIENT_IP'];
+        $keys = array('X_FORWARDED_FOR', 'HTTP_X_FORWARDED_FOR', 'CLIENT_IP', 'REMOTE_ADDR');
+        foreach ($keys as $key) {
+            if (isset($this->env[$key])) {
+                return $this->env[$key];
+            }
         }
 
         return $this->env['REMOTE_ADDR'];

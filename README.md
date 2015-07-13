@@ -1,6 +1,7 @@
-# visualCaptcha for WordPress
-
+[![Codacy](https://www.codacy.com/project/badge/f4d52c3f12a14d9bac7205863796456a)](https://www.codacy.com/app/bruno-bernardino/visualCaptcha-WordPress)
 [![Code Climate](https://codeclimate.com/github/emotionLoop/visualCaptcha-WordPress/badges/gpa.svg)](https://codeclimate.com/github/emotionLoop/visualCaptcha-WordPress)
+
+# visualCaptcha for WordPress
 
 The visualCaptcha WordPress plugin is at http://wordpress.org/plugins/visualcaptcha/
 
@@ -10,7 +11,7 @@ Composer and its packages are versioned because that makes it easier to just cop
 
 ## Current Version
 
-Current version is 5.0.4.
+Current version is 5.0.5.
 
 ## Demo
 

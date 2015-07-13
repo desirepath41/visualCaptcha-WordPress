@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     2.4.2
+ * @version     2.6.1
  *
  * MIT LICENSE
  *
@@ -162,7 +162,8 @@ class ViewTest extends PHPUnit_Framework_TestCase
     public function testSetTemplatesDirectory()
     {
         $view = new \Slim\View();
-        $view->setTemplatesDirectory('templates/'); // <-- Should strip trailing slash
+        $directory = 'templates' . DIRECTORY_SEPARATOR;
+        $view->setTemplatesDirectory($directory); // <-- Should strip trailing slash
 
         $this->assertAttributeEquals('templates', 'templatesDirectory', $view);
     }

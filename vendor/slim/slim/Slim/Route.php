@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     2.4.2
+ * @version     2.6.1
  * @package     Slim
  *
  * MIT LICENSE
@@ -162,8 +162,16 @@ class Route
     public function setCallable($callable)
     {
         $matches = array();
-        if (is_string($callable) && preg_match('!^([^\:]+)\:([[:alnum:]]+)$!', $callable, $matches)) {
-            $callable = array(new $matches[1], $matches[2]);
+        if (is_string($callable) && preg_match('!^([^\:]+)\:([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)$!', $callable, $matches)) {
+            $class = $matches[1];
+            $method = $matches[2];
+            $callable = function() use ($class, $method) {
+                static $obj = null;
+                if ($obj === null) {
+                    $obj = new $class;
+                }
+                return call_user_func_array(array($obj, $method), func_get_args());
+            };
         }
 
         if (!is_callable($callable)) {
@@ -280,6 +288,9 @@ class Route
     public function appendHttpMethods()
     {
         $args = func_get_args();
+        if(count($args) && is_array($args[0])){
+            $args = $args[0];
+        }
         $this->methods = array_merge($this->methods, $args);
     }
 
@@ -290,6 +301,9 @@ class Route
     public function via()
     {
         $args = func_get_args();
+        if(count($args) && is_array($args[0])){
+            $args = $args[0];
+        }
         $this->methods = array_merge($this->methods, $args);
 
         return $this;

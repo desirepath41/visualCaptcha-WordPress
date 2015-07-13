@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     2.4.2
+ * @version     2.6.1
  *
  * MIT LICENSE
  *
@@ -190,6 +190,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, count($req->params()));
         $this->assertEquals('1', $req->params('one'));
         $this->assertNull($req->params('foo'));
+        $this->assertEquals(1, $req->params('foo', 1));
     }
 
     /**
@@ -879,41 +880,24 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test get IP
+     *  @dataProvider dataTestIp
      */
-    public function testGetIp()
+    public function testGetIp(array $server, $expected)
     {
-        $env = \Slim\Environment::mock(array(
-            'REMOTE_ADDR' => '127.0.0.1'
-        ));
+        $env = \Slim\Environment::mock($server);
         $req = new \Slim\Http\Request($env);
-        $this->assertEquals('127.0.0.1', $req->getIp());
+        $this->assertEquals($expected, $req->getIp());
     }
 
-    /**
-     * Test get IP with proxy server and Client-Ip header
-     */
-    public function testGetIpWithClientIp()
+    public function dataTestIp()
     {
-        $env = \Slim\Environment::mock(array(
-            'REMOTE_ADDR' => '127.0.0.1',
-            'CLIENT_IP' => '127.0.0.2'
-        ));
-        $req = new \Slim\Http\Request($env);
-        $this->assertEquals('127.0.0.2', $req->getIp());
-    }
-
-    /**
-     * Test get IP with proxy server and X-Forwarded-For header
-     */
-    public function testGetIpWithForwardedFor()
-    {
-        $env = \Slim\Environment::mock(array(
-            'REMOTE_ADDR' => '127.0.0.1',
-            'CLIENT_IP' => '127.0.0.2',
-            'X_FORWARDED_FOR' => '127.0.0.3'
-        ));
-        $req = new \Slim\Http\Request($env);
-        $this->assertEquals('127.0.0.3', $req->getIp());
+        return array(
+                array(array('REMOTE_ADDR' => '127.0.0.1'), '127.0.0.1'),
+                array(array('REMOTE_ADDR' => '127.0.0.1', 'CLIENT_IP' => '127.0.0.2'), '127.0.0.2'),
+                array(array('REMOTE_ADDR' => '127.0.0.1', 'CLIENT_IP' => '127.0.0.2', 'X_FORWARDED_FOR' => '127.0.0.3'), '127.0.0.3'),
+                array(array('REMOTE_ADDR' => '127.0.0.1', 'CLIENT_IP' => '127.0.0.2', 'HTTP_X_FORWARDED_FOR' => '127.0.0.4'), '127.0.0.4'),
+                array(array('REMOTE_ADDR' => '127.0.0.1', 'CLIENT_IP' => '127.0.0.2', 'X_FORWARDED_FOR' => '127.0.0.3', 'HTTP_X_FORWARDED_FOR' => '127.0.0.4'), '127.0.0.3'),
+        );
     }
 
     /**

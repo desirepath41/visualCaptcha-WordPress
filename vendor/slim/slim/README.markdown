@@ -1,6 +1,6 @@
 # Slim Framework
 
-[![Build Status](https://secure.travis-ci.org/codeguy/Slim.png?branch=master)](http://travis-ci.org/codeguy/Slim)
+[![Build Status](https://travis-ci.org/slimphp/Slim.svg?branch=master)](https://travis-ci.org/slimphp/Slim)
 
 Slim is a PHP micro framework that helps you quickly write simple yet powerful web applications and APIs.
 Slim is easy to use for both beginners and professionals. Slim favors cleanliness over terseness and common cases
@@ -17,7 +17,7 @@ Thank you for choosing the Slim Framework for your next project. I think you're 
 * Resource Locator and DI container
 * Template rendering with custom views
 * Flash messages
-* Secure cookies with AES-256 encryption
+* Encrypt cookie data
 * HTTP caching
 * Logging with custom log writers
 * Error handling and debugging
@@ -62,6 +62,10 @@ should contain this code:
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [QSA,L]
+
+Additionally, make sure your virtual host is configured with the AllowOverride option so that the .htaccess rewrite rules can be used:
+
+   AllowOverride All
 
 #### Nginx
 
@@ -128,6 +132,31 @@ Ensure the `Web.config` and `index.php` files are in the same public-accessible 
         </system.webServer>
     </configuration>
 
+#### Google App Engine
+
+Two steps are required to successfully run your Slim application on Google App Engine. First, ensure the `app.yaml` file includes a default handler to `index.php`:
+
+    application: your-app-name
+    version: 1
+    runtime: php
+    api_version: 1
+    
+    handlers:
+    # ...
+    - url: /.*
+      script: public_html/index.php
+
+Next, edit your `index.php` file so Slim knows about the incoming URI:
+
+    $app = new Slim();
+    
+    // Google App Engine doesn't set $_SERVER['PATH_INFO']
+    $app->environment['PATH_INFO'] = $_SERVER['REQUEST_URI'];
+    
+    // ...
+    $app->run();
+
+   
 ## Documentation
 
 <http://docs.slimframework.com/>

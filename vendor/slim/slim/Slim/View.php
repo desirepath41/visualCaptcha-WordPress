@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     2.4.2
+ * @version     2.6.1
  * @package     Slim
  *
  * MIT LICENSE
@@ -108,7 +108,7 @@ class View
      * @param string $key
      * @param mixed $value
      */
-    public function keep($key, Closure $value)
+    public function keep($key, \Closure $value)
     {
         $this->data->keep($key, $value);
     }
@@ -152,9 +152,9 @@ class View
     {
         if (!is_null($key)) {
             return isset($this->data[$key]) ? $this->data[$key] : null;
-        } else {
-            return $this->data->all();
         }
+
+        return $this->data->all();
     }
 
     /**
