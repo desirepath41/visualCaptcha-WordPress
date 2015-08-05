@@ -1,6 +1,6 @@
 /*! visualCaptcha WordPress Bootstrapper
 * http://visualcaptcha.net
-* Copyright (c) 2014 emotionLoop; Licensed MIT */
+* Copyright (c) 2015 emotionLoop; Licensed MIT */
 
 (function( $ ) {
     $( document ).ready( function() {
@@ -18,7 +18,15 @@
                 captcha: {
                     url: captchaParams.url,
                     numberOfImages: numberOfImages,
-                    namespace: namespace
+                    namespace: namespace,
+                    callbacks: {
+                    loaded: function( captcha ) {
+                        // Avoid adding the hashtag to the URL when clicking/selecting visualCaptcha options
+                        $this.find( 'a' ).on( 'click', function( event ) {
+                            event.preventDefault();
+                        });
+                    }
+                }
                 },
                 language: captchaParams.language
             });

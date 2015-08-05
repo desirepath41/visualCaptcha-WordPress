@@ -2,8 +2,8 @@
 Contributors: brunobernardino, jmigcosta
 Tags: captcha, visualcaptcha, visual captcha, wordpress captcha, easy captcha, safe captcha, spam filter, spam protection, comments, lost password, user login, register
 Requires at least: 3.4.1
-Tested up to: 4.2.2
-Stable tag: 5.0.5
+Tested up to: 4.2.4
+Stable tag: 5.0.6
 License: GNU GPL v3
 License URI: http://www.gnu.org/licenses/gpl.html
 
